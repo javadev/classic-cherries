@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/dpaukov/classic-cherries.png)](http://travis-ci.org/dpaukov/classic-cherries)
+
 # classic-cherries
 Implementation of some classical computer science algorithms
 
