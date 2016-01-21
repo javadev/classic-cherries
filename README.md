@@ -1,4 +1,5 @@
-[![Build Status](https://secure.travis-ci.org/dpaukov/classic-cherries.png)](http://travis-ci.org/dpaukov/classic-cherries)
+[![Build Status](https://secure.travis-ci.org/dpaukov/classic-cherries.png)](http://travis-ci.org/dpaukov/classic-cherries)[![Coverage Status](https://coveralls.io/repos/github/dpaukov/classic-cherries/badge.svg?branch=master)](https://coveralls.io/github/dpaukov/classic-cherries?branch=master)
+
 
 # classic-cherries
 Implementation of some classical computer science algorithms
