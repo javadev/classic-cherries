@@ -1,4 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/dpaukov/classic-cherries.png)](http://travis-ci.org/dpaukov/classic-cherries)[![Coverage Status](https://coveralls.io/repos/github/dpaukov/classic-cherries/badge.svg?branch=master)](https://coveralls.io/github/dpaukov/classic-cherries?branch=master)
+[![Build Status](https://secure.travis-ci.org/dpaukov/classic-cherries.svg)](http://travis-ci.org/dpaukov/classic-cherries) [![Coverage Status](https://coveralls.io/repos/github/dpaukov/classic-cherries/badge.svg?branch=master)](https://coveralls.io/github/dpaukov/classic-cherries?branch=master)
 
 
 # classic-cherries
