@@ -6,11 +6,11 @@ package org.paukov.exercise;
 public class RotateArray {
 
     public void rotate(int[] array, int k){
-        if (k<=0){
+        if (k <= 0) {
             return;
         }
-        k = k % array.length;
 
+        k = k % array.length;
         reverse(array, array.length-k, array.length-1);
         reverse(array, 0, array.length-k-1);
         reverse(array, 0, array.length-1);
