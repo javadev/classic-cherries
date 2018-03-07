@@ -3,6 +3,7 @@ package org.paukov.backtracking;
 import java.util.List;
 
 /**
+ * A skeleton class for all backtracking issues.
  * Created by dpaukov on 3/4/18.
  */
 public abstract class Backtracking<T, I> {
