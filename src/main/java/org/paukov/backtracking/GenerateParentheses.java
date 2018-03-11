@@ -1,5 +1,6 @@
 package org.paukov.backtracking;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
 public class GenerateParentheses extends Backtracking<String, Integer> {
 
     private long count = 0;
+    private List<String> result = new ArrayList<String>();
 
     protected boolean isSolution(String[] vector, int k, Integer dataInput) {
         return (k == 2 * dataInput);
@@ -32,9 +34,12 @@ public class GenerateParentheses extends Backtracking<String, Integer> {
         if (balance == 0) {
             count++;
             System.out.printf("%4d: ", count);
+            StringBuilder builder = new StringBuilder();
             for (i = 1; i <= k; i++) {
                 System.out.print(vector[i]);
+                builder.append(vector[i]);
             }
+            result.add(builder.toString());
             System.out.println();
         }
     }
@@ -51,9 +56,15 @@ public class GenerateParentheses extends Backtracking<String, Integer> {
         // nothing here
     }
 
+    public List<String> calc(Integer input) {
+        GenerateParentheses generateParentheses = new GenerateParentheses();
+        String[] vector = new String[input * 2 + 1];
+        generateParentheses.run(vector, 0, input);
+        return generateParentheses.result;
+    }
+
     public static void main(String[] args) {
         GenerateParentheses generateParentheses = new GenerateParentheses();
-        String[] vector = new String[10];
-        generateParentheses.run(vector, 0, 3);
+        generateParentheses.calc(3);
     }
 }
