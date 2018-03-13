@@ -78,7 +78,7 @@ public class MaxPossibleTime extends Backtracking<Integer, List<Integer>> {
         //do nothing
     }
 
-    public String calc(List<Integer> input) {
+    public static String calc(List<Integer> input) {
         MaxPossibleTime possibleTime = new MaxPossibleTime();
         possibleTime.run(new Integer[5], 0, input);
         if (possibleTime.maxCount > 0) {
@@ -89,7 +89,6 @@ public class MaxPossibleTime extends Backtracking<Integer, List<Integer>> {
     }
 
     public static void main(String[] args) {
-        MaxPossibleTime possibleTime = new MaxPossibleTime();
-        possibleTime.calc(Arrays.asList(1, 9, 2, 5));
+        MaxPossibleTime.calc(Arrays.asList(1, 9, 2, 5));
     }
 }
