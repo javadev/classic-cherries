@@ -12,29 +12,25 @@ import static org.fest.assertions.Assertions.assertThat;
 public class GenerateParenthesesTest {
     @Test
     public void calc_3() throws Exception {
-        GenerateParentheses generateParentheses = new GenerateParentheses();
-        List<String> result = generateParentheses.calc(3);
+        List<String> result = GenerateParentheses.calc(3);
         assertThat(result).containsExactly("((()))", "(()())", "(())()", "()(())", "()()()");
     }
 
     @Test
     public void calc_2() throws Exception {
-        GenerateParentheses generateParentheses = new GenerateParentheses();
-        List<String> result = generateParentheses.calc(2);
+        List<String> result = GenerateParentheses.calc(2);
         assertThat(result).containsExactly("(())", "()()");
     }
 
     @Test
     public void calc_1() throws Exception {
-        GenerateParentheses generateParentheses = new GenerateParentheses();
-        List<String> result = generateParentheses.calc(1);
+        List<String> result = GenerateParentheses.calc(1);
         assertThat(result).containsExactly("()");
     }
 
     @Test
     public void calc_0() throws Exception {
-        GenerateParentheses generateParentheses = new GenerateParentheses();
-        List<String> result = generateParentheses.calc(0);
+        List<String> result = GenerateParentheses.calc(0);
         assertThat(result).containsExactly("");
     }
 

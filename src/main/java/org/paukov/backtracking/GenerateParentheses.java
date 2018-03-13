@@ -56,7 +56,7 @@ public class GenerateParentheses extends Backtracking<String, Integer> {
         // nothing here
     }
 
-    public List<String> calc(Integer input) {
+    public static List<String> calc(Integer input) {
         GenerateParentheses generateParentheses = new GenerateParentheses();
         String[] vector = new String[input * 2 + 1];
         generateParentheses.run(vector, 0, input);
@@ -64,7 +64,6 @@ public class GenerateParentheses extends Backtracking<String, Integer> {
     }
 
     public static void main(String[] args) {
-        GenerateParentheses generateParentheses = new GenerateParentheses();
-        generateParentheses.calc(3);
+        GenerateParentheses.calc(3);
     }
 }
