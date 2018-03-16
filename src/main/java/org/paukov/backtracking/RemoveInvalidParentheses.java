@@ -13,6 +13,8 @@ import java.util.*;
  * "()())()" -> ["()()()", "(())()"]
  * "(a)())()" -> ["(a)()()", "(a())()"]
  * ")(" -> [""]
+ *
+ * https://leetcode.com/problems/remove-invalid-parentheses/description/
  */
 public class RemoveInvalidParentheses extends Backtracking<Boolean, List<String>> {
 
@@ -72,7 +74,7 @@ public class RemoveInvalidParentheses extends Backtracking<Boolean, List<String>
 
     public static Set<String> calc(String input) {
         RemoveInvalidParentheses removeInvalidParentheses = new RemoveInvalidParentheses();
-        Boolean[] vector = new Boolean[input.length() + 1];
+        Boolean[] vector = new Boolean[input.length() + 2];
         List<String> dataInput = Arrays.asList(input.split(""));
         removeInvalidParentheses.run(vector, 0, dataInput);
         Set<String> result = new HashSet<String>();
