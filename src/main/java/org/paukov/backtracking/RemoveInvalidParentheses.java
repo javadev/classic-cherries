@@ -1,10 +1,6 @@
 package org.paukov.backtracking;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by dpaukov on 3/13/18.
@@ -72,14 +68,6 @@ public class RemoveInvalidParentheses extends Backtracking<Boolean, List<String>
         } else {
             return Arrays.asList(Boolean.TRUE);
         }
-    }
-
-    protected void makeMove(Boolean[] vector, int k, List<String> dataInput) {
-        // do nothing
-    }
-
-    protected void unmakeMove(Boolean[] vector, int k, List<String> dataInput) {
-        // do nothing
     }
 
     public static Set<String> calc(String input) {

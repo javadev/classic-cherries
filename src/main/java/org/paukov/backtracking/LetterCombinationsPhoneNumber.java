@@ -52,14 +52,6 @@ public class LetterCombinationsPhoneNumber extends Backtracking<String, List<Str
         }
     }
 
-    protected void makeMove(String[] vector, int k, List<String> dataInput) {
-        // do nothing here
-    }
-
-    protected void unmakeMove(String[] vector, int k, List<String> dataInput) {
-        // do nothing here
-    }
-
     public static List<String> calc(String input) {
         LetterCombinationsPhoneNumber letterCombinationsPhoneNumber = new LetterCombinationsPhoneNumber();
         letterCombinationsPhoneNumber.run(new String[input.length() + 1], 0, Arrays.asList(input.split("")));

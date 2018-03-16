@@ -50,14 +50,6 @@ public class ChildAndStaircase extends Backtracking<Integer, Integer> {
         return candidates;
     }
 
-    protected void makeMove(Integer[] vector, int k, Integer dataInput) {
-        //nothing
-    }
-
-    protected void unmakeMove(Integer[] vector, int k, Integer dataInput) {
-        //nothing
-    }
-
     public static void main(String[] args) {
         ChildAndStaircase childAndStaircase = new ChildAndStaircase();
         Integer[] vector = new Integer[7];

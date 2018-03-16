@@ -1,10 +1,6 @@
 package org.paukov.backtracking;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by dpaukov on 3/10/18.

@@ -16,9 +16,15 @@ public abstract class Backtracking<T, I> {
 
     protected abstract List<T> constructCandidates(T[] vector, int k, I dataInput);
 
-    protected abstract void makeMove(T[] vector, int k, I dataInput);
+    protected void makeMove(T[] vector, int k, I dataInput) {
+    }
 
-    protected abstract void unmakeMove(T[] vector, int k, I dataInput);
+    ;
+
+    protected void unmakeMove(T[] vector, int k, I dataInput) {
+    }
+
+    ;
 
     public void run(T[] vector, int k, I dataInput) {
         if (isSolution(vector, k, dataInput)) {

@@ -30,16 +30,6 @@ public class AllSubsets extends Backtracking<Boolean, Integer> {
         return Arrays.asList(TRUE, FALSE);
     }
 
-    @Override
-    protected void makeMove(Boolean[] vector, int k, Integer dataInput) {
-        // Nothing to do here
-    }
-
-    @Override
-    protected void unmakeMove(Boolean[] vector, int k, Integer dataInput) {
-        // Nothing to do here
-    }
-
     public static void main(String[] args) {
         AllSubsets allSubsets = new AllSubsets();
         Boolean[] vector = new Boolean[4];

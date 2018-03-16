@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * Created by dpaukov on 3/10/18.
- *
+ * <p>
  * Given four digits, find the maximum valid time that can be displayed on
  * a digital clock (in 24 -hour format) using those digits. for example,
  * given digits 2,3,5,9 the maximum valid time is "23:59". note that "24:39"
@@ -68,14 +68,6 @@ public class MaxPossibleTime extends Backtracking<Integer, List<Integer>> {
             }
         }
         return candidates;
-    }
-
-    protected void makeMove(Integer[] vector, int k, List<Integer> dataInput) {
-        //do nothing
-    }
-
-    protected void unmakeMove(Integer[] vector, int k, List<Integer> dataInput) {
-        //do nothing
     }
 
     public static String calc(List<Integer> input) {

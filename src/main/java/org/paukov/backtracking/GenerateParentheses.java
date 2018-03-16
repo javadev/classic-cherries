@@ -48,14 +48,6 @@ public class GenerateParentheses extends Backtracking<String, Integer> {
         return Arrays.asList("(", ")");
     }
 
-    protected void makeMove(String[] vector, int k, Integer dataInput) {
-        // nothing here
-    }
-
-    protected void unmakeMove(String[] vector, int k, Integer dataInput) {
-        // nothing here
-    }
-
     public static List<String> calc(Integer input) {
         GenerateParentheses generateParentheses = new GenerateParentheses();
         String[] vector = new String[input * 2 + 1];

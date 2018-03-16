@@ -2,11 +2,9 @@ package org.paukov.backtracking;
 
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.fest.assertions.Assertions.assertThat;
-import static org.junit.Assert.*;
 
 /**
  * Created by dpaukov on 3/13/18.

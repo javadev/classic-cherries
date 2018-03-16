@@ -38,16 +38,6 @@ public class AllPermutations extends Backtracking<Integer, Integer> {
         return result;
     }
 
-    @Override
-    protected void makeMove(Integer[] vector, int k, Integer dataInput) {
-        // Do nothing here
-    }
-
-    @Override
-    protected void unmakeMove(Integer[] vector, int k, Integer dataInput) {
-        // Do nothing here
-    }
-
     public static void main(String[] args) {
         AllPermutations allPermutations = new AllPermutations();
         Integer[] vector = new Integer[100];
