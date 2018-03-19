@@ -13,7 +13,7 @@ public class MajorityElement {
 
     // Solution based on Boyer–Moore majority vote algorithm
     // https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_majority_vote_algorithm
-    public int majorityElement(int[] nums) {
+    public static int majorityElement(int[] nums) {
         int count = 0;
         int candidate = nums[0];
         for (int c : nums) {
