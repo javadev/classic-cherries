@@ -98,7 +98,7 @@ public class EditDistanceTest {
 
         assertThat(matrix.getEditDistance()).isEqualTo(4);
         assertThat(matrix.getEditDistanceOperations()).isEqualTo("-S-SS-D");
-        assertThat(matrix.getEditDistanceSymbols()).isEqualTo("-o-rc-D");
+        assertThat(matrix.getEditDistanceSymbols()).isEqualTo("source~");
     }
 
     @Test
@@ -109,7 +109,8 @@ public class EditDistanceTest {
 
         assertThat(matrix.getEditDistance()).isEqualTo(1);
         assertThat(matrix.getEditDistanceOperations()).isEqualTo("---I---");
-        assertThat(matrix.getEditDistanceSymbols()).isEqualTo("---X---");
+        assertThat(matrix.getEditDistanceSymbols()).isEqualTo("souXrce");
+        assertThat(matrix.getCommonSubstrings()).containsExactly("sou", "rce");
     }
 
 }

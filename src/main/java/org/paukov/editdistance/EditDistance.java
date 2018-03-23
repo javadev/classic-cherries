@@ -1,5 +1,8 @@
 package org.paukov.editdistance;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by dpaukov on 3/22/18.
  * <p>
@@ -32,7 +35,7 @@ public class EditDistance {
         String target;
         Cell[][] matrix;
 
-        private Matrix(String source, String target) {
+        Matrix(String source, String target) {
             this.source = source;
             this.target = target;
             this.matrix = new Cell[source.length() + 1][target.length() + 1];
@@ -86,13 +89,13 @@ public class EditDistance {
             StringBuilder builder = reconstructPath(source.length(), target.length(), new StringBuilder(),
                     (source, target, i, j, path) -> {
                         if (source.charAt(i - 1) == target.charAt(j - 1)) {
-                            path.append('-');
+                            path.append('-'); // Match - nothing to do
                         } else {
-                            path.append('S');
+                            path.append('S'); // Substitute
                         }
                     },
-                    (source, target, i, j, path) -> path.append('I'),
-                    (source, target, i, j, path) -> path.append('D')
+                    (source, target, i, j, path) -> path.append('I'), // Insert
+                    (source, target, i, j, path) -> path.append('D')  // Delete
             );
             return builder.toString();
         }
@@ -101,15 +104,45 @@ public class EditDistance {
             StringBuilder builder = reconstructPath(source.length(), target.length(), new StringBuilder(),
                     (source, target, i, j, path) -> {
                         if (source.charAt(i - 1) == target.charAt(j - 1)) {
-                            path.append('-');
+                            path.append(source.charAt(i - 1));
                         } else {
                             path.append(target.charAt(j - 1));
                         }
                     },
                     (source, target, i, j, path) -> path.append(target.charAt(j - 1)),
-                    (source, target, i, j, path) -> path.append('D')
+                    (source, target, i, j, path) -> path.append('~')
             );
             return builder.toString();
+        }
+
+        /**
+         * Returns common non-overlapping sub-strings
+         */
+        public List<String> getCommonSubstrings() {
+            String operations = getEditDistanceOperations();
+            String symbols = getEditDistanceSymbols();
+
+            List<String> result = new ArrayList<>();
+            int index = 0;
+
+            StringBuilder builder = new StringBuilder();
+            for (char c : operations.toCharArray()) {
+                if (c == '-') {
+                    builder.append(symbols.charAt(index));
+                } else {
+                    String subString = builder.toString();
+                    if (!subString.isEmpty()) {
+                        result.add(builder.toString());
+                    }
+                    builder = new StringBuilder();
+                }
+                index++;
+            }
+            String subString = builder.toString();
+            if (!subString.isEmpty()) {
+                result.add(builder.toString());
+            }
+            return result;
         }
 
 
