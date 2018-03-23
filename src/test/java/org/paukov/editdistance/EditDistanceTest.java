@@ -19,7 +19,7 @@ public class EditDistanceTest {
         EditDistance.Matrix matrix = editDistance.compare();
 
         assertThat(matrix.getEditDistance()).isEqualTo(5);
-        assertThat(matrix.getMinEditPathString()).isEqualTo("DSMMMMMISMSMMMM");
+        assertThat(matrix.getEditDistanceOperations()).isEqualTo("DS-----IS-S----");
 
     }
 
@@ -32,7 +32,7 @@ public class EditDistanceTest {
         EditDistance.Matrix matrix = editDistance.compare();
 
         assertThat(matrix.getEditDistance()).isEqualTo(1);
-        assertThat(matrix.getMinEditPathString()).isEqualTo("MMSMM");
+        assertThat(matrix.getEditDistanceOperations()).isEqualTo("--S--");
     }
 
     @Test
@@ -44,7 +44,7 @@ public class EditDistanceTest {
         EditDistance.Matrix matrix = editDistance.compare();
 
         assertThat(matrix.getEditDistance()).isEqualTo(5);
-        assertThat(matrix.getMinEditPathString()).isEqualTo("DDDSS");
+        assertThat(matrix.getEditDistanceOperations()).isEqualTo("DDDSS");
     }
 
     @Test
@@ -56,7 +56,7 @@ public class EditDistanceTest {
         EditDistance.Matrix matrix = editDistance.compare();
 
         assertThat(matrix.getEditDistance()).isEqualTo(4);
-        assertThat(matrix.getMinEditPathString()).isEqualTo("DSMSS");
+        assertThat(matrix.getEditDistanceOperations()).isEqualTo("DS-SS");
     }
 
     @Test
@@ -66,7 +66,7 @@ public class EditDistanceTest {
         EditDistance.Matrix matrix = editDistance.compare();
 
         assertThat(matrix.getEditDistance()).isEqualTo(0);
-        assertThat(matrix.getMinEditPathString()).isEqualTo("");
+        assertThat(matrix.getEditDistanceOperations()).isEqualTo("");
     }
 
     @Test
@@ -76,7 +76,7 @@ public class EditDistanceTest {
         EditDistance.Matrix matrix = editDistance.compare();
 
         assertThat(matrix.getEditDistance()).isEqualTo(6);
-        assertThat(matrix.getMinEditPathString()).isEqualTo("DDDDDD");
+        assertThat(matrix.getEditDistanceOperations()).isEqualTo("DDDDDD");
     }
 
     @Test
@@ -86,7 +86,7 @@ public class EditDistanceTest {
         EditDistance.Matrix matrix = editDistance.compare();
 
         assertThat(matrix.getEditDistance()).isEqualTo(6);
-        assertThat(matrix.getMinEditPathString()).isEqualTo("IIIIII");
+        assertThat(matrix.getEditDistanceOperations()).isEqualTo("IIIIII");
     }
 
 
@@ -97,7 +97,8 @@ public class EditDistanceTest {
         EditDistance.Matrix matrix = editDistance.compare();
 
         assertThat(matrix.getEditDistance()).isEqualTo(4);
-        assertThat(matrix.getMinEditPathString()).isEqualTo("MSMSSMD");
+        assertThat(matrix.getEditDistanceOperations()).isEqualTo("-S-SS-D");
+        assertThat(matrix.getEditDistanceSymbols()).isEqualTo("-o-rc-D");
     }
 
     @Test
@@ -107,7 +108,8 @@ public class EditDistanceTest {
         EditDistance.Matrix matrix = editDistance.compare();
 
         assertThat(matrix.getEditDistance()).isEqualTo(1);
-        assertThat(matrix.getMinEditPathString()).isEqualTo("MMMIMMM");
+        assertThat(matrix.getEditDistanceOperations()).isEqualTo("---I---");
+        assertThat(matrix.getEditDistanceSymbols()).isEqualTo("---X---");
     }
 
 }

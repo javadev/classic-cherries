@@ -1,8 +1,5 @@
 package org.paukov.editdistance;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by dpaukov on 3/22/18.
  */
@@ -70,48 +67,59 @@ public class EditDistance {
             return matrix[source.length()][target.length()].cost;
         }
 
-        public String getMinEditPathString() {
-            List<Character> path = new ArrayList<Character>();
-            reconstructPath(source.length(), target.length(), path);
-            StringBuilder builder = new StringBuilder();
-            for (Character c : path) {
-                builder.append(c);
-            }
+        interface OutFunction {
+            void apply(String source, String target, int i, int j, StringBuilder path);
+        }
+
+        public String getEditDistanceOperations() {
+            StringBuilder builder = reconstructPath(source.length(), target.length(), new StringBuilder(),
+                    (source, target, i, j, path) -> {
+                        if (source.charAt(i - 1) == target.charAt(j - 1)) {
+                            path.append('-');
+                        } else {
+                            path.append('S');
+                        }
+                    },
+                    (source, target, i, j, path) -> path.append('I'),
+                    (source, target, i, j, path) -> path.append('D')
+            );
             return builder.toString();
         }
 
-        void matchOut(String source, String target, int i, int j, List<Character> path) {
-            if (source.charAt(i - 1) == target.charAt(j - 1)) {
-                path.add('M');
-            } else {
-                path.add('S');
-            }
+        public String getEditDistanceSymbols() {
+            StringBuilder builder = reconstructPath(source.length(), target.length(), new StringBuilder(),
+                    (source, target, i, j, path) -> {
+                        if (source.charAt(i - 1) == target.charAt(j - 1)) {
+                            path.append('-');
+                        } else {
+                            path.append(target.charAt(j - 1));
+                        }
+                    },
+                    (source, target, i, j, path) -> path.append(target.charAt(j - 1)),
+                    (source, target, i, j, path) -> path.append('D')
+            );
+            return builder.toString();
         }
 
-        void insertOut(String s, int i, List<Character> path) {
-            path.add('I');
-        }
 
-        void deleteOut(String s, int i, List<Character> path) {
-            path.add('D');
-        }
-
-        private void reconstructPath(int i, int j, List<Character> path) {
+        private StringBuilder reconstructPath(
+                int i, int j, StringBuilder path, OutFunction matchOut, OutFunction insertOut, OutFunction deleteOut) {
             if (getParent(i, j) == UNKNOWN) {
-                return;
+                return path;
             }
             if (getParent(i, j) == MATCH) {
-                reconstructPath(i - 1, j - 1, path);
-                matchOut(source, target, i, j, path);
+                reconstructPath(i - 1, j - 1, path, matchOut, insertOut, deleteOut);
+                matchOut.apply(source, target, i, j, path);
             }
             if (getParent(i, j) == INSERT) {
-                reconstructPath(i, j - 1, path);
-                insertOut(target, j, path);
+                reconstructPath(i, j - 1, path, matchOut, insertOut, deleteOut);
+                insertOut.apply(source, target, i, j, path);
             }
             if (getParent(i, j) == DELETE) {
-                reconstructPath(i - 1, j, path);
-                deleteOut(source, i, path);
+                reconstructPath(i - 1, j, path, matchOut, insertOut, deleteOut);
+                deleteOut.apply(source, target, i, j, path);
             }
+            return path;
         }
 
     }
