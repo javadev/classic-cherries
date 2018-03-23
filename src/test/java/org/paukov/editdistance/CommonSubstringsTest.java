@@ -40,7 +40,7 @@ public class CommonSubstringsTest {
 
         List<String> list = commonSubstrings.calculate();
 
-        assertThat(list).containsExactly("AB", "CADGGH", "EASSS", "C");
+        assertThat(list).containsExactly("A", "B", "CADGGH", "EASSS", "C");
     }
 
     @Test
