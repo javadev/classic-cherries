@@ -10,4 +10,4 @@ Implementation of some classical computer science algorithms
 - Quick Select Algorithm (to find the kth smallest element in an unordered list)
 - Backtracking (for generating subsets, permutations, solving sudoku, etc.)
 - Dynamic Programming (for calculating edit distance, longest common subsequence, etc)
-- 0/1 Knapsack Problem
+- 0/1 Knapsack Problem, Integer Partition (Multiset of Integers) Problem
