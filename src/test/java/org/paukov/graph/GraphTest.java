@@ -57,4 +57,38 @@ public class GraphTest {
                 Arrays.asList(6, 7),
                 Arrays.asList(8));
     }
+
+    @Test
+    public void findPath() throws Exception {
+        Graph graph = new Graph(9);
+        graph.addBiDirectedEdge(0, 1);
+        graph.addBiDirectedEdge(0, 4);
+        graph.addBiDirectedEdge(0, 5);
+        graph.addBiDirectedEdge(1, 2);
+        graph.addBiDirectedEdge(1, 4);
+        graph.addBiDirectedEdge(2, 3);
+        graph.addBiDirectedEdge(3, 4);
+        graph.addBiDirectedEdge(6, 7);
+
+        assertThat(graph.findPath(0, 3)).containsExactly(0, 4, 3);
+        assertThat(graph.findPath(3, 0)).containsExactly(3, 4, 0);
+        assertThat(graph.findPath(7, 6)).containsExactly(7, 6);
+        assertThat(graph.findPath(6, 7)).containsExactly(6, 7);
+    }
+
+    @Test
+    public void findPath_noPath() throws Exception {
+        Graph graph = new Graph(9);
+        graph.addBiDirectedEdge(0, 1);
+        graph.addBiDirectedEdge(0, 4);
+        graph.addBiDirectedEdge(0, 5);
+        graph.addBiDirectedEdge(1, 2);
+        graph.addBiDirectedEdge(1, 4);
+        graph.addBiDirectedEdge(2, 3);
+        graph.addBiDirectedEdge(3, 4);
+        graph.addBiDirectedEdge(6, 7);
+
+        assertThat(graph.findPath(2, 7)).isEmpty();
+        assertThat(graph.findPath(7, 2)).isEmpty();
+    }
 }
