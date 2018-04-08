@@ -71,13 +71,18 @@ public class Graph {
                     list.add(v);
                 },
                 (i, j) -> System.out.println("Process edge: " + i + "," + j),
-                (v) -> {});
+                (v) -> {
+                    // do nothing here
+                });
         return list;
     }
 
-    public void bfs(int root, NodeInfo[] info, IntConsumer processNodeBefore, BiConsumer<Integer, Integer> processEdge, IntConsumer processNodeAfter) {
+    public void bfs(int root,
+                    NodeInfo[] info,
+                    IntConsumer processNodeBefore,
+                    BiConsumer<Integer, Integer> processEdge,
+                    IntConsumer processNodeAfter) {
         assert root < this.size;
-
         info[root].discovered = true;
         Queue<Integer> queue = new LinkedList<>();
         queue.add(root);
@@ -96,7 +101,6 @@ public class Graph {
                 }
             }
             processNodeAfter.accept(node);
-
         }
     }
 
@@ -109,14 +113,19 @@ public class Graph {
                     list.add(v);
                 },
                 (i, j) -> System.out.println("Process edge: " + i + "," + j),
-                (v) -> {});
+                (v) -> {
+                    // do nothing here
+                });
         return list;
     }
 
 
-    public void dfs(int node, NodeInfo[] info, IntConsumer processNodeBefore, BiConsumer<Integer, Integer> processEdge, IntConsumer processNodeAfter) {
+    public void dfs(int node,
+                    NodeInfo[] info,
+                    IntConsumer processNodeBefore,
+                    BiConsumer<Integer, Integer> processEdge,
+                    IntConsumer processNodeAfter) {
         assert node < this.size;
-
         info[node].discovered = true;
         time = time + 1;
         info[node].entryTime = time;
@@ -138,8 +147,21 @@ public class Graph {
         info[node].processed = true;
     }
 
+    public List<List<Integer>> connectedComponents(){
+        NodeInfo[] info = NodeInfo.build(this.size);
+        List<List<Integer>> componentList = new ArrayList<>();
+        for (int i=0; i< size; i++){
+            if (!info[i].discovered){
+                List<Integer> component = new ArrayList<>();
+                bfs(i, info, component::add, (s, e)->{}, (v)->{});
+                componentList.add(component);
+            }
+        }
+        return componentList;
+    }
+
     public static void main(String[] args) {
-        Graph graph = new Graph(6);
+        Graph graph = new Graph(9);
         graph.addBiDirectedEdge(0, 1);
         graph.addBiDirectedEdge(0, 4);
         graph.addBiDirectedEdge(0, 5);
@@ -147,7 +169,9 @@ public class Graph {
         graph.addBiDirectedEdge(1, 4);
         graph.addBiDirectedEdge(2, 3);
         graph.addBiDirectedEdge(3, 4);
+        graph.addBiDirectedEdge(6, 7);
         System.out.println("BFS:" + graph.bfs(0));
         System.out.println("DFS:" + graph.dfs(0));
+        System.out.println("ConnectedComponents:" + graph.connectedComponents());
     }
 }
