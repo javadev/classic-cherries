@@ -1,9 +1,6 @@
 package org.paukov.graph;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 import java.util.function.BiConsumer;
 
 /**
@@ -295,6 +292,30 @@ public class Graph {
         if (nodeInfos[j].processed && nodeInfos[j].entryTime > nodeInfos[i].entryTime) return EdgeClass.FORWARD;
         if (nodeInfos[j].processed && nodeInfos[j].entryTime < nodeInfos[i].entryTime) return EdgeClass.CROSS;
         return EdgeClass.UNKNOWN;
+    }
+
+    public List<Integer> topologicalSort() {
+        NodeInfo[] nodeInfo = NodeInfo.build(this.size);
+        Deque<Integer> stack = new ArrayDeque<>();
+        for (int i = 0; i < size; i++) {
+            if (!nodeInfo[i].discovered) {
+                dfs(i, nodeInfo, (v, info) -> {
+                            // do nothing
+                        },
+                        (edge, info) -> {
+                            System.out.println("Topological Sorting edge: " + edge.i + "," + edge.j);
+                            EdgeClass edgeClass = classifyEdge(edge.i, edge.j, info);
+                            if (edgeClass == EdgeClass.BACK) {
+                                edge.setEdgeClass(edgeClass);
+                                throw new RuntimeException("Cycle found, not acyclic graph: " + edge);
+                            }
+                        },
+                        (v, info) -> {
+                            stack.push(v);
+                        });
+            }
+        }
+        return new ArrayList<>(stack);
     }
 
     public static void main(String[] args) {
