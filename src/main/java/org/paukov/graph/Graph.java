@@ -73,10 +73,10 @@ public class Graph {
         bfs(root,
                 NodeInfo.build(size),
                 (v, info) -> {
-                    System.out.println("Process vertex: " + v);
+                    System.out.println("BFS Process vertex: " + v);
                     list.add(v);
                 },
-                (edge, info) -> System.out.println("Process edge: " + edge.i + "," + edge.j),
+                (edge, info) -> System.out.println("BFS Process edge: " + edge.i + "," + edge.j),
                 (v, info) -> {
                     // do nothing here
                 });
@@ -115,10 +115,10 @@ public class Graph {
         dfs(root,
                 NodeInfo.build(size),
                 (v, info) -> {
-                    System.out.println("Process vertex: " + v);
+                    System.out.println("DFS Process vertex: " + v);
                     list.add(v);
                 },
-                (edge, info) -> System.out.println("Process edge: " + edge.i + "," + edge.j),
+                (edge, info) -> System.out.println("DFS Process edge: " + edge.i + "," + edge.j),
                 (v, info) -> {
                     // do nothing here
                 });
@@ -132,6 +132,7 @@ public class Graph {
                     BiConsumer<Edge, NodeInfo[]> processEdge,
                     BiConsumer<Integer, NodeInfo[]> processNodeAfter) {
         assert node < this.size;
+
         info[node].discovered = true;
         time = time + 1;
         info[node].entryTime = time;
@@ -191,6 +192,33 @@ public class Graph {
         return path;
     }
 
+    public List<List<Integer>> findCycles() {
+        NodeInfo[] nodeInfo = NodeInfo.build(this.size);
+        List<List<Integer>> cycles = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            if (!nodeInfo[i].discovered) {
+                dfs(i, nodeInfo, (v, info) -> {
+                            System.out.println("DFS Process vertex: " + v);
+                        },
+                        (edge, info) -> {
+                            System.out.print("DFS Process edge: " + edge.i + "," + edge.j);
+                            if (info[edge.j].parent != edge.i) {
+                                // We found a cycle
+                                System.out.printf(" - DFS Cycle from %d to %d", edge.j, edge.i);
+                                List<Integer> cyclePath = new ArrayList<>();
+                                findPathRecursively(edge.j, edge.i, nodeInfo, cyclePath);
+                                cycles.add(cyclePath);
+                            }
+                            System.out.println();
+                        },
+                        (v, info) -> {
+                            // do nothing here
+                        });
+            }
+        }
+        return cycles;
+    }
+
     private void findPathRecursively(int start, int end, NodeInfo[] nodeInfo, List<Integer> path) {
         if (start == end || end == NO_PARENT) {
             path.add(start);
@@ -216,5 +244,25 @@ public class Graph {
         System.out.println("DFS:" + graph.dfs(0));
         System.out.println("ConnectedComponents:" + graph.connectedComponents());
         System.out.println("Path 0->3:" + graph.findPath(0, 3));
+        System.out.println("Cycles:" + graph.findCycles());
+
+        Graph graph2 = new Graph(9);
+        graph2.addEdge(0, 1);
+        graph2.addEdge(0, 4);
+        graph2.addEdge(0, 5);
+        graph2.addEdge(1, 2);
+        graph2.addEdge(1, 4);
+        graph2.addEdge(2, 3);
+        graph2.addEdge(3, 4);
+        graph2.addEdge(6, 7);
+
+        graph2.addEdge(3, 1);
+        graph2.addEdge(4, 1);
+
+        System.out.println("BFS:" + graph2.bfs(0));
+        System.out.println("DFS:" + graph2.dfs(0));
+        System.out.println("ConnectedComponents:" + graph2.connectedComponents());
+        System.out.println("Path 0->3:" + graph2.findPath(0, 3));
+        System.out.println("Cycles:" + graph2.findCycles());
     }
 }
