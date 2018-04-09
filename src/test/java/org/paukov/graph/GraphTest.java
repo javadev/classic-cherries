@@ -91,4 +91,84 @@ public class GraphTest {
         assertThat(graph.findPath(2, 7)).isEmpty();
         assertThat(graph.findPath(7, 2)).isEmpty();
     }
+
+    @Test
+    public void classifyEdges_tree() throws Exception {
+        Graph graph = new Graph(5);
+        graph.addEdge(0, 1);
+        graph.addEdge(0, 2);
+        graph.addEdge(1, 3);
+        graph.addEdge(1, 4);
+
+        List<Graph.Edge> edges = graph.classifyEdges();
+
+        assertThat(edges).containsExactly(
+                Graph.Edge.of(0, 1, Graph.EdgeClass.TREE),
+                Graph.Edge.of(1, 3, Graph.EdgeClass.TREE),
+                Graph.Edge.of(1, 4, Graph.EdgeClass.TREE),
+                Graph.Edge.of(0, 2, Graph.EdgeClass.TREE)
+        );
+    }
+
+    @Test
+    public void classifyEdges_forward() throws Exception {
+        Graph graph = new Graph(5);
+        graph.addEdge(0, 1);
+        graph.addEdge(0, 2);
+        graph.addEdge(1, 3);
+        graph.addEdge(1, 4);
+        graph.addEdge(0, 4);
+
+        List<Graph.Edge> edges = graph.classifyEdges();
+
+        assertThat(edges).containsExactly(
+                Graph.Edge.of(0, 1, Graph.EdgeClass.TREE),
+                Graph.Edge.of(1, 3, Graph.EdgeClass.TREE),
+                Graph.Edge.of(1, 4, Graph.EdgeClass.TREE),
+                Graph.Edge.of(0, 2, Graph.EdgeClass.TREE),
+                Graph.Edge.of(0, 4, Graph.EdgeClass.FORWARD)
+        );
+    }
+
+    @Test
+    public void classifyEdges_back() throws Exception {
+        Graph graph = new Graph(5);
+        graph.addEdge(0, 1);
+        graph.addEdge(0, 2);
+        graph.addEdge(1, 3);
+        graph.addEdge(1, 4);
+        graph.addEdge(4, 0);
+
+        List<Graph.Edge> edges = graph.classifyEdges();
+
+        assertThat(edges).containsExactly(
+                Graph.Edge.of(0, 1, Graph.EdgeClass.TREE),
+                Graph.Edge.of(1, 3, Graph.EdgeClass.TREE),
+                Graph.Edge.of(1, 4, Graph.EdgeClass.TREE),
+                Graph.Edge.of(4, 0, Graph.EdgeClass.BACK),
+                Graph.Edge.of(0, 2, Graph.EdgeClass.TREE)
+        );
+    }
+
+    @Test
+    public void classifyEdges_cross() throws Exception {
+        Graph graph = new Graph(5);
+        graph.addEdge(0, 1);
+        graph.addEdge(0, 2);
+        graph.addEdge(1, 3);
+        graph.addEdge(1, 4);
+        graph.addEdge(2, 4);
+        graph.addEdge(2, 1);
+
+        List<Graph.Edge> edges = graph.classifyEdges();
+
+        assertThat(edges).containsExactly(
+                Graph.Edge.of(0, 1, Graph.EdgeClass.TREE),
+                Graph.Edge.of(1, 3, Graph.EdgeClass.TREE),
+                Graph.Edge.of(1, 4, Graph.EdgeClass.TREE),
+                Graph.Edge.of(0, 2, Graph.EdgeClass.TREE),
+                Graph.Edge.of(2, 4, Graph.EdgeClass.CROSS),
+                Graph.Edge.of(2, 1, Graph.EdgeClass.CROSS)
+        );
+    }
 }

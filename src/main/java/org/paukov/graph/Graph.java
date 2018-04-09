@@ -11,6 +11,10 @@ import java.util.function.BiConsumer;
  */
 public class Graph {
 
+    public enum EdgeClass {
+        UNKNOWN, TREE, BACK, FORWARD, CROSS
+    }
+
     private static final int NO_PARENT = -1;
 
     final int size;
@@ -33,17 +37,48 @@ public class Graph {
         }
     }
 
-    static class Edge {
+    static public class Edge {
         int i;
         int j;
+        EdgeClass edgeClass;
 
-        Edge(int i, int j) {
+        Edge(int i, int j, EdgeClass edgeClass) {
             this.i = i;
             this.j = j;
+            this.edgeClass = edgeClass;
         }
 
-        static Edge of(int i, int j) {
-            return new Edge(i, j);
+        static Edge of(int i, int j, EdgeClass edgeClass) {
+            return new Edge(i, j, edgeClass);
+        }
+
+        void setEdgeClass(EdgeClass edgeClass) {
+            this.edgeClass = edgeClass;
+        }
+
+        @Override
+        public String toString() {
+            return "Edge(" + i + ", " + j + ", " + edgeClass + ')';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Edge edge = (Edge) o;
+
+            if (i != edge.i) return false;
+            if (j != edge.j) return false;
+            return edgeClass == edge.edgeClass;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = i;
+            result = 31 * result + j;
+            result = 31 * result + edgeClass.hashCode();
+            return result;
         }
     }
 
@@ -97,9 +132,10 @@ public class Graph {
             info[node].processed = true;
             processNodeBefore.accept(node, info);
             for (Integer child : edges[node]) {
-                if (!info[child].processed) {
-                    processEdge.accept(Edge.of(node, child), info);
-                }
+                // TODO: add support for undirected graphs
+                // if (!info[child].processed) {
+                processEdge.accept(Edge.of(node, child, EdgeClass.UNKNOWN), info);
+                // }
                 if (!info[child].discovered) {
                     queue.add(child);
                     info[child].discovered = true;
@@ -142,10 +178,11 @@ public class Graph {
         for (Integer child : edges[node]) {
             if (!info[child].discovered) {
                 info[child].parent = node;
-                processEdge.accept(Edge.of(node, child), info);
+                processEdge.accept(Edge.of(node, child, EdgeClass.UNKNOWN), info);
                 dfs(child, info, processNodeBefore, processEdge, processNodeAfter);
-            } else if (!info[child].processed) {
-                processEdge.accept(Edge.of(node, child), info);
+                //TODO: Add support for undirected graphs.
+            } else /*if (!info[child].processed)*/ {
+                processEdge.accept(Edge.of(node, child, EdgeClass.UNKNOWN), info);
             }
         }
         processNodeAfter.accept(node, info);
@@ -230,6 +267,36 @@ public class Graph {
         }
     }
 
+    public List<Edge> classifyEdges() {
+        NodeInfo[] nodeInfo = NodeInfo.build(this.size);
+        List<Edge> classifiedEdges = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            if (!nodeInfo[i].discovered) {
+                dfs(i, nodeInfo, (v, info) -> {
+                            // do nothing
+                        },
+                        (edge, info) -> {
+                            System.out.println("DFS Edge Classification Process edge: " + edge.i + "," + edge.j);
+                            EdgeClass edgeClass = classifyEdge(edge.i, edge.j, info);
+                            edge.setEdgeClass(edgeClass);
+                            classifiedEdges.add(edge);
+                        },
+                        (v, info) -> {
+                            // do nothing here
+                        });
+            }
+        }
+        return classifiedEdges;
+    }
+
+    private EdgeClass classifyEdge(int i, int j, NodeInfo[] nodeInfos) {
+        if (nodeInfos[j].parent == i) return EdgeClass.TREE;
+        if (nodeInfos[j].discovered && !nodeInfos[j].processed) return EdgeClass.BACK;
+        if (nodeInfos[j].processed && nodeInfos[j].entryTime > nodeInfos[i].entryTime) return EdgeClass.FORWARD;
+        if (nodeInfos[j].processed && nodeInfos[j].entryTime < nodeInfos[i].entryTime) return EdgeClass.CROSS;
+        return EdgeClass.UNKNOWN;
+    }
+
     public static void main(String[] args) {
         Graph graph = new Graph(9);
         graph.addBiDirectedEdge(0, 1);
@@ -264,5 +331,6 @@ public class Graph {
         System.out.println("ConnectedComponents:" + graph2.connectedComponents());
         System.out.println("Path 0->3:" + graph2.findPath(0, 3));
         System.out.println("Cycles:" + graph2.findCycles());
+        System.out.println("Edge Classes:" + graph2.classifyEdges());
     }
 }
