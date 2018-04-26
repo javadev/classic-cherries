@@ -6,6 +6,8 @@ import java.util.Set;
 /**
  * Created by dpaukov on 4/25/18.
  * <p>
+ * 3. Longest Substring Without Repeating Characters
+ * <p>
  * Given a string, find the length of the longest substring without repeating characters.
  * <p>
  * Examples:
