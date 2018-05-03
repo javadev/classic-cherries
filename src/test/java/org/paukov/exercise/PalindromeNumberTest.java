@@ -1,6 +1,7 @@
 package org.paukov.exercise;
 
 import org.junit.Test;
+import org.paukov.exercise.math.PalindromeNumber;
 
 import static org.fest.assertions.Assertions.assertThat;
 
