@@ -10,10 +10,10 @@ import static org.fest.assertions.Assertions.assertThat;
 /**
  * Created by dpaukov on 4/7/18.
  */
-public class GraphTest {
+public class GraphExTest {
     @Test
     public void bfs() throws Exception {
-        Graph graph = new Graph(6);
+        GraphEx graph = new GraphEx(6);
         graph.addBiDirectedEdge(0, 1);
         graph.addBiDirectedEdge(0, 4);
         graph.addBiDirectedEdge(0, 5);
@@ -28,7 +28,7 @@ public class GraphTest {
 
     @Test
     public void dfs() throws Exception {
-        Graph graph = new Graph(6);
+        GraphEx graph = new GraphEx(6);
         graph.addBiDirectedEdge(0, 1);
         graph.addBiDirectedEdge(0, 4);
         graph.addBiDirectedEdge(0, 5);
@@ -42,7 +42,7 @@ public class GraphTest {
 
     @Test
     public void connectedComponents() throws Exception {
-        Graph graph = new Graph(9);
+        GraphEx graph = new GraphEx(9);
         graph.addBiDirectedEdge(0, 1);
         graph.addBiDirectedEdge(0, 4);
         graph.addBiDirectedEdge(0, 5);
@@ -60,7 +60,7 @@ public class GraphTest {
 
     @Test
     public void findPath() throws Exception {
-        Graph graph = new Graph(9);
+        GraphEx graph = new GraphEx(9);
         graph.addBiDirectedEdge(0, 1);
         graph.addBiDirectedEdge(0, 4);
         graph.addBiDirectedEdge(0, 5);
@@ -78,7 +78,7 @@ public class GraphTest {
 
     @Test
     public void findPath_noPath() throws Exception {
-        Graph graph = new Graph(9);
+        GraphEx graph = new GraphEx(9);
         graph.addBiDirectedEdge(0, 1);
         graph.addBiDirectedEdge(0, 4);
         graph.addBiDirectedEdge(0, 5);
@@ -94,40 +94,40 @@ public class GraphTest {
 
     @Test
     public void classifyEdges_tree() throws Exception {
-        Graph graph = new Graph(5);
+        GraphEx graph = new GraphEx(5);
         graph.addEdge(0, 1);
         graph.addEdge(0, 2);
         graph.addEdge(1, 3);
         graph.addEdge(1, 4);
 
-        List<Graph.Edge> edges = graph.classifyEdges();
+        List<GraphEx.Edge> edges = graph.classifyEdges();
 
         assertThat(edges).containsExactly(
-                Graph.Edge.of(0, 1, Graph.EdgeClass.TREE),
-                Graph.Edge.of(1, 3, Graph.EdgeClass.TREE),
-                Graph.Edge.of(1, 4, Graph.EdgeClass.TREE),
-                Graph.Edge.of(0, 2, Graph.EdgeClass.TREE)
+                GraphEx.Edge.of(0, 1, GraphEx.EdgeClass.TREE),
+                GraphEx.Edge.of(1, 3, GraphEx.EdgeClass.TREE),
+                GraphEx.Edge.of(1, 4, GraphEx.EdgeClass.TREE),
+                GraphEx.Edge.of(0, 2, GraphEx.EdgeClass.TREE)
         );
         assertThat(graph.findCycles()).isEmpty();
     }
 
     @Test
     public void classifyEdges_forward() throws Exception {
-        Graph graph = new Graph(5);
+        GraphEx graph = new GraphEx(5);
         graph.addEdge(0, 1);
         graph.addEdge(0, 2);
         graph.addEdge(1, 3);
         graph.addEdge(1, 4);
         graph.addEdge(0, 4);
 
-        List<Graph.Edge> edges = graph.classifyEdges();
+        List<GraphEx.Edge> edges = graph.classifyEdges();
 
         assertThat(edges).containsExactly(
-                Graph.Edge.of(0, 1, Graph.EdgeClass.TREE),
-                Graph.Edge.of(1, 3, Graph.EdgeClass.TREE),
-                Graph.Edge.of(1, 4, Graph.EdgeClass.TREE),
-                Graph.Edge.of(0, 2, Graph.EdgeClass.TREE),
-                Graph.Edge.of(0, 4, Graph.EdgeClass.FORWARD)
+                GraphEx.Edge.of(0, 1, GraphEx.EdgeClass.TREE),
+                GraphEx.Edge.of(1, 3, GraphEx.EdgeClass.TREE),
+                GraphEx.Edge.of(1, 4, GraphEx.EdgeClass.TREE),
+                GraphEx.Edge.of(0, 2, GraphEx.EdgeClass.TREE),
+                GraphEx.Edge.of(0, 4, GraphEx.EdgeClass.FORWARD)
         );
         // TODO: fix finding cycles for directed graphs
         // assertThat(graph.findCycles()).isEmpty();
@@ -135,42 +135,42 @@ public class GraphTest {
 
     @Test
     public void classifyEdges_back() throws Exception {
-        Graph graph = new Graph(5);
+        GraphEx graph = new GraphEx(5);
         graph.addEdge(0, 1);
         graph.addEdge(0, 2);
         graph.addEdge(1, 3);
         graph.addEdge(1, 4);
         graph.addEdge(4, 0);
 
-        List<Graph.Edge> edges = graph.classifyEdges();
+        List<GraphEx.Edge> edges = graph.classifyEdges();
 
         assertThat(edges).containsExactly(
-                Graph.Edge.of(0, 1, Graph.EdgeClass.TREE),
-                Graph.Edge.of(1, 3, Graph.EdgeClass.TREE),
-                Graph.Edge.of(1, 4, Graph.EdgeClass.TREE),
-                Graph.Edge.of(4, 0, Graph.EdgeClass.BACK),
-                Graph.Edge.of(0, 2, Graph.EdgeClass.TREE)
+                GraphEx.Edge.of(0, 1, GraphEx.EdgeClass.TREE),
+                GraphEx.Edge.of(1, 3, GraphEx.EdgeClass.TREE),
+                GraphEx.Edge.of(1, 4, GraphEx.EdgeClass.TREE),
+                GraphEx.Edge.of(4, 0, GraphEx.EdgeClass.BACK),
+                GraphEx.Edge.of(0, 2, GraphEx.EdgeClass.TREE)
         );
         assertThat(graph.findCycles()).containsExactly(Arrays.asList(0, 1, 4));
     }
 
     @Test
     public void classifyEdges_cross() throws Exception {
-        Graph graph = new Graph(5);
+        GraphEx graph = new GraphEx(5);
         graph.addEdge(0, 1);
         graph.addEdge(0, 2);
         graph.addEdge(1, 3);
         graph.addEdge(1, 4);
         graph.addEdge(2, 1);
 
-        List<Graph.Edge> edges = graph.classifyEdges();
+        List<GraphEx.Edge> edges = graph.classifyEdges();
 
         assertThat(edges).containsExactly(
-                Graph.Edge.of(0, 1, Graph.EdgeClass.TREE),
-                Graph.Edge.of(1, 3, Graph.EdgeClass.TREE),
-                Graph.Edge.of(1, 4, Graph.EdgeClass.TREE),
-                Graph.Edge.of(0, 2, Graph.EdgeClass.TREE),
-                Graph.Edge.of(2, 1, Graph.EdgeClass.CROSS)
+                GraphEx.Edge.of(0, 1, GraphEx.EdgeClass.TREE),
+                GraphEx.Edge.of(1, 3, GraphEx.EdgeClass.TREE),
+                GraphEx.Edge.of(1, 4, GraphEx.EdgeClass.TREE),
+                GraphEx.Edge.of(0, 2, GraphEx.EdgeClass.TREE),
+                GraphEx.Edge.of(2, 1, GraphEx.EdgeClass.CROSS)
         );
         // TODO: fix finding cycles for directed graphs
         // assertThat(graph.findCycles()).isEmpty();
@@ -178,7 +178,7 @@ public class GraphTest {
 
     @Test
     public void topologicalSort() throws Exception {
-        Graph graph = new Graph(7);
+        GraphEx graph = new GraphEx(7);
         graph.addEdge(0, 1);
         graph.addEdge(0, 2);
         graph.addEdge(1, 3);
@@ -196,7 +196,7 @@ public class GraphTest {
 
     @Test(expected = RuntimeException.class)
     public void topologicalSort_with_cycle() throws Exception {
-        Graph graph = new Graph(7);
+        GraphEx graph = new GraphEx(7);
         graph.addEdge(0, 1);
         graph.addEdge(0, 2);
         graph.addEdge(3, 1);
