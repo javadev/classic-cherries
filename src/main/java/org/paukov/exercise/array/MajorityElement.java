@@ -1,4 +1,4 @@
-package org.paukov.exercise.bits;
+package org.paukov.exercise.array;
 
 /**
  * Created by dpaukov on 3/18/18.

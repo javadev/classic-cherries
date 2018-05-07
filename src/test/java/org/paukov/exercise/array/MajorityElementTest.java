@@ -1,4 +1,4 @@
-package org.paukov.exercise.bits;
+package org.paukov.exercise.array;
 
 import org.junit.Test;
 
