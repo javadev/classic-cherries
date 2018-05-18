@@ -51,39 +51,39 @@ public class VerifyPreorderSerialization {
         String root = preorder[index];
 
         if (!Objects.equals(root, "#")) {
-            // right tree
-            int rSize = 1;
-
-            if (index + rSize >= preorder.length) {
-                return -1;
-            }
-
-            String right = preorder[index + rSize];
-            if (!Objects.equals(right, "#")) {
-                rSize = isValidNode(preorder, index + rSize);
-            }
-
-            if (rSize == -1) {
-                return -1;
-            }
-
             // left tree
             int lSize = 1;
 
-            if (index + rSize + lSize >= preorder.length) {
+            if (index + lSize >= preorder.length) {
                 return -1;
             }
 
-            String left = preorder[index + rSize + lSize];
+            String left = preorder[index + lSize];
             if (!Objects.equals(left, "#")) {
-                lSize = isValidNode(preorder, index + rSize + lSize);
+                lSize = isValidNode(preorder, index + lSize);
             }
 
             if (lSize == -1) {
                 return -1;
             }
 
-            return 1 + rSize + lSize;
+            // right tree
+            int rSize = 1;
+
+            if (index + rSize + lSize >= preorder.length) {
+                return -1;
+            }
+
+            String right = preorder[index + rSize + lSize];
+            if (!Objects.equals(right, "#")) {
+                rSize = isValidNode(preorder, index + rSize + lSize);
+            }
+
+            if (rSize == -1) {
+                return -1;
+            }
+
+            return 1 + lSize + rSize;
         }
         if (index == preorder.length - 1) {
             return 1; // size of this node '#'
