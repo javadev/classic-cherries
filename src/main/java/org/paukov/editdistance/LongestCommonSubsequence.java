@@ -46,5 +46,12 @@ public class LongestCommonSubsequence extends EditDistance {
         System.out.println("Operations: " + matrix2.getEditDistanceOperations());
         System.out.println("Symbols:    " + matrix2.getEditDistanceSymbols());
         System.out.println("Common:     " + matrix2.getCommonSubstrings());
+
+        LongestCommonSubsequence lcs3 = new LongestCommonSubsequence("bbbab", "babbb");
+        Matrix matrix3 = lcs3.compare();
+        System.out.println("Distance:   " + matrix3.getEditDistance());
+        System.out.println("Operations: " + matrix3.getEditDistanceOperations());
+        System.out.println("Symbols:    " + matrix3.getEditDistanceSymbols());
+        System.out.println("Common:     " + matrix3.getCommonSubstrings());
     }
 }
