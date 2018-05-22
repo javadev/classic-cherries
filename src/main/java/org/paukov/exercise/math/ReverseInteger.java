@@ -29,22 +29,22 @@ package org.paukov.exercise.math;
  */
 public class ReverseInteger {
 
-    public int reverse(int x) {
-        int result = 0;
-        int div = 10;
+  public int reverse(int x) {
+    int result = 0;
+    int div = 10;
 
-        while (x != 0) {
-            int a = x % div;
-            if (result > (Integer.MAX_VALUE / 10)) {
-                return 0;
-            } else if (x < 0 && (result < (Integer.MIN_VALUE / 10))) {
-                return 0;
-            } else {
-                result = result * 10 + a;
-                x = x / div;
-            }
-        }
-        return result;
-
+    while (x != 0) {
+      int a = x % div;
+      if (result > (Integer.MAX_VALUE / 10)) {
+        return 0;
+      } else if (x < 0 && (result < (Integer.MIN_VALUE / 10))) {
+        return 0;
+      } else {
+        result = result * 10 + a;
+        x = x / div;
+      }
     }
+    return result;
+
+  }
 }

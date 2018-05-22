@@ -8,27 +8,27 @@ import java.util.List;
  */
 public class StringSplit {
 
-    private final Character symbol;
+  private final Character symbol;
 
-    public StringSplit(Character symbol) {
-        this.symbol = symbol;
-    }
+  public StringSplit(Character symbol) {
+    this.symbol = symbol;
+  }
 
-    public List<String> split(String str){
-        List<String> result = new ArrayList<String>();
-        int i = -1, j = 0;
-        while (j < str.length()) {
-            if (str.charAt(j) == symbol) {
-                if (i+1 < j) {
-                    result.add(str.substring(i + 1, j));
-                }
-                i = j;
-            }
-            j++;
+  public List<String> split(String str) {
+    List<String> result = new ArrayList<String>();
+    int i = -1, j = 0;
+    while (j < str.length()) {
+      if (str.charAt(j) == symbol) {
+        if (i + 1 < j) {
+          result.add(str.substring(i + 1, j));
         }
-        if (i+1 < str.length()) {
-            result.add(str.substring(i + 1, str.length()));
-        }
-        return result;
+        i = j;
+      }
+      j++;
     }
+    if (i + 1 < str.length()) {
+      result.add(str.substring(i + 1, str.length()));
+    }
+    return result;
+  }
 }

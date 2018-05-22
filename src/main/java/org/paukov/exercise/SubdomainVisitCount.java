@@ -33,54 +33,55 @@ import java.util.List;
  */
 public class SubdomainVisitCount {
 
-    class CountPaired {
-        final Integer value;
-        List<String> domains = new ArrayList<>();
+  public static void main(String[] args) {
+    SubdomainVisitCount v = new SubdomainVisitCount();
+    System.out.println(v.subdomainVisits(
+        new String[]{"900 google.mail.com", "50 yahoo.com", "1 intel.mail.com", "5 wiki.org"}));
+  }
 
-        CountPaired(String s) {
-            int separator = s.indexOf(" ");
-            value = Integer.parseInt(s.substring(0, separator));
-            String domain = s.substring(separator + 1);
-            String[] array = domain.split("\\.");
-            for (int i = 0; i < array.length; i++) {
-                String d = "";
-                for (int j = i; j < array.length; j++) {
-                    d += array[j];
-                    if (j != array.length - 1) {
-                        d += ".";
-                    }
-                }
-                domains.add(d);
-            }
-
-        }
+  public List<String> subdomainVisits(String[] cpdomains) {
+    List<CountPaired> list = new ArrayList<>();
+    for (String s : cpdomains) {
+      list.add(new CountPaired(s));
     }
-
-    public List<String> subdomainVisits(String[] cpdomains) {
-        List<CountPaired> list = new ArrayList<>();
-        for (String s : cpdomains) {
-            list.add(new CountPaired(s));
+    HashMap<String, Integer> map = new HashMap<>();
+    for (CountPaired p : list) {
+      for (String s : p.domains) {
+        if (map.containsKey(s)) {
+          map.put(s, map.get(s) + p.value);
+        } else {
+          map.put(s, p.value);
         }
-        HashMap<String, Integer> map = new HashMap<>();
-        for (CountPaired p : list) {
-            for (String s : p.domains) {
-                if (map.containsKey(s)) {
-                    map.put(s, map.get(s) + p.value);
-                } else {
-                    map.put(s, p.value);
-                }
-            }
-        }
-        List<String> result = new ArrayList<>();
-        for (String s : map.keySet()) {
-            result.add("" + map.get(s) + " " + s);
-        }
-        return result;
+      }
     }
-
-    public static void main(String[] args) {
-        SubdomainVisitCount v = new SubdomainVisitCount();
-        System.out.println(v.subdomainVisits(
-                new String[]{"900 google.mail.com", "50 yahoo.com", "1 intel.mail.com", "5 wiki.org"}));
+    List<String> result = new ArrayList<>();
+    for (String s : map.keySet()) {
+      result.add("" + map.get(s) + " " + s);
     }
+    return result;
+  }
+
+  class CountPaired {
+
+    final Integer value;
+    List<String> domains = new ArrayList<>();
+
+    CountPaired(String s) {
+      int separator = s.indexOf(" ");
+      value = Integer.parseInt(s.substring(0, separator));
+      String domain = s.substring(separator + 1);
+      String[] array = domain.split("\\.");
+      for (int i = 0; i < array.length; i++) {
+        String d = "";
+        for (int j = i; j < array.length; j++) {
+          d += array[j];
+          if (j != array.length - 1) {
+            d += ".";
+          }
+        }
+        domains.add(d);
+      }
+
+    }
+  }
 }

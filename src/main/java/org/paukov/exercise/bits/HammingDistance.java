@@ -20,21 +20,21 @@ package org.paukov.exercise.bits;
  */
 public class HammingDistance {
 
-    public static int hammingDistance(int x, int y) {
-        int xor = x ^ y;
-        int result = 0;
-        while (xor != 0) {
-            if ((xor & 1) == 1) {
-                result++;
-            }
-            xor >>= 1;
-        }
-        return result;
+  public static int hammingDistance(int x, int y) {
+    int xor = x ^ y;
+    int result = 0;
+    while (xor != 0) {
+      if ((xor & 1) == 1) {
+        result++;
+      }
+      xor >>= 1;
     }
+    return result;
+  }
 
-    public static void main(String[] args) {
-        System.out.println("Distance of (2, 4): " + hammingDistance(2, 4));
-        System.out.println("Distance of (7, 8): " + hammingDistance(7, 8));
-        System.out.println("Distance of (63, 0): " + hammingDistance(63, 0));
-    }
+  public static void main(String[] args) {
+    System.out.println("Distance of (2, 4): " + hammingDistance(2, 4));
+    System.out.println("Distance of (7, 8): " + hammingDistance(7, 8));
+    System.out.println("Distance of (63, 0): " + hammingDistance(63, 0));
+  }
 }

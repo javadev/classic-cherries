@@ -16,49 +16,50 @@ import java.util.List;
  */
 public class LetterCombinationsPhoneNumber extends Backtracking<String, List<String>> {
 
-    private String[][] mapping = {
-            {}, {""},
-            {"a", "b", "c"},
-            {"d", "e", "f"},
-            {"g", "h", "i"},
-            {"j", "k", "l"},
-            {"m", "n", "o"},
-            {"p", "q", "r", "s"},
-            {"t", "u", "v"},
-            {"w", "x", "y", "z"}};
+  private String[][] mapping = {
+      {}, {""},
+      {"a", "b", "c"},
+      {"d", "e", "f"},
+      {"g", "h", "i"},
+      {"j", "k", "l"},
+      {"m", "n", "o"},
+      {"p", "q", "r", "s"},
+      {"t", "u", "v"},
+      {"w", "x", "y", "z"}};
 
-    private List<String> result = new ArrayList<String>();
+  private List<String> result = new ArrayList<String>();
 
-    protected boolean isSolution(String[] vector, int k, List<String> dataInput) {
-        return k == dataInput.size();
+  public static List<String> calc(String input) {
+    LetterCombinationsPhoneNumber letterCombinationsPhoneNumber = new LetterCombinationsPhoneNumber();
+    letterCombinationsPhoneNumber
+        .run(new String[input.length() + 1], 0, Arrays.asList(input.split("")));
+    return letterCombinationsPhoneNumber.result;
+  }
+
+  public static void main(String[] args) {
+    LetterCombinationsPhoneNumber.calc("23");
+  }
+
+  protected boolean isSolution(String[] vector, int k, List<String> dataInput) {
+    return k == dataInput.size();
+  }
+
+  protected void processSolution(String[] vector, int k, List<String> dataInput) {
+    StringBuilder builder = new StringBuilder();
+    for (int i = 1; i <= k; i++) {
+      builder.append(vector[i]);
+      System.out.print(vector[i]);
     }
+    result.add(builder.toString());
+    System.out.println();
+  }
 
-    protected void processSolution(String[] vector, int k, List<String> dataInput) {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 1; i <= k; i++) {
-            builder.append(vector[i]);
-            System.out.print(vector[i]);
-        }
-        result.add(builder.toString());
-        System.out.println();
+  protected List<String> constructCandidates(String[] vector, int k, List<String> dataInput) {
+    try {
+      int number = Integer.parseInt(dataInput.get(k));
+      return new ArrayList<String>(Arrays.asList(mapping[number]));
+    } catch (NumberFormatException ex) {
+      return new ArrayList<String>(); // no candidates
     }
-
-    protected List<String> constructCandidates(String[] vector, int k, List<String> dataInput) {
-        try {
-            int number = Integer.parseInt(dataInput.get(k));
-            return new ArrayList<String>(Arrays.asList(mapping[number]));
-        } catch (NumberFormatException ex) {
-            return new ArrayList<String>(); // no candidates
-        }
-    }
-
-    public static List<String> calc(String input) {
-        LetterCombinationsPhoneNumber letterCombinationsPhoneNumber = new LetterCombinationsPhoneNumber();
-        letterCombinationsPhoneNumber.run(new String[input.length() + 1], 0, Arrays.asList(input.split("")));
-        return letterCombinationsPhoneNumber.result;
-    }
-
-    public static void main(String[] args) {
-        LetterCombinationsPhoneNumber.calc("23");
-    }
+  }
 }

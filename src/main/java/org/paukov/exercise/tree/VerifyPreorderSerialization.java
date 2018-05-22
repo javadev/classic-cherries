@@ -4,14 +4,13 @@ import java.util.Objects;
 
 /**
  * Created by dpaukov on 5/18/18.
- * <p>
+ *
  * 331. Verify Preorder Serialization of a Binary Tree
  * https://leetcode.com/problems/verify-preorder-serialization-of-a-binary-tree/description/
- * <p>
- * <p>
- * One way to serialize a binary tree is to use pre-order traversal. When we encounter a non-null node,
- * we record the node's value. If it is a null node, we record using a sentinel value such as #.
- * <p>
+ *
+ * One way to serialize a binary tree is to use pre-order traversal. When we encounter a non-null
+ * node, we record the node's value. If it is a null node, we record using a sentinel value such as
+ * #. <p>
  * <pre>
  *      _9_
  *     /    \
@@ -44,72 +43,72 @@ import java.util.Objects;
  */
 public class VerifyPreorderSerialization {
 
-    /**
-     * Parses the string and returns the size of the valid tree or -1 if the tree is not valid
-     */
-    static int isValidNode(String[] preorder, int index) {
-        String root = preorder[index];
+  /**
+   * Parses the string and returns the size of the valid tree or -1 if the tree is not valid
+   */
+  static int isValidNode(String[] preorder, int index) {
+    String root = preorder[index];
 
-        if (!Objects.equals(root, "#")) {
-            // left tree
-            int lSize = 1;
+    if (!Objects.equals(root, "#")) {
+      // left tree
+      int lSize = 1;
 
-            if (index + lSize >= preorder.length) {
-                return -1;
-            }
-
-            String left = preorder[index + lSize];
-            if (!Objects.equals(left, "#")) {
-                lSize = isValidNode(preorder, index + lSize);
-            }
-
-            if (lSize == -1) {
-                return -1;
-            }
-
-            // right tree
-            int rSize = 1;
-
-            if (index + rSize + lSize >= preorder.length) {
-                return -1;
-            }
-
-            String right = preorder[index + rSize + lSize];
-            if (!Objects.equals(right, "#")) {
-                rSize = isValidNode(preorder, index + rSize + lSize);
-            }
-
-            if (rSize == -1) {
-                return -1;
-            }
-
-            return 1 + lSize + rSize;
-        }
-        if (index == preorder.length - 1) {
-            return 1; // size of this node '#'
-        }
-
+      if (index + lSize >= preorder.length) {
         return -1;
+      }
+
+      String left = preorder[index + lSize];
+      if (!Objects.equals(left, "#")) {
+        lSize = isValidNode(preorder, index + lSize);
+      }
+
+      if (lSize == -1) {
+        return -1;
+      }
+
+      // right tree
+      int rSize = 1;
+
+      if (index + rSize + lSize >= preorder.length) {
+        return -1;
+      }
+
+      String right = preorder[index + rSize + lSize];
+      if (!Objects.equals(right, "#")) {
+        rSize = isValidNode(preorder, index + rSize + lSize);
+      }
+
+      if (rSize == -1) {
+        return -1;
+      }
+
+      return 1 + lSize + rSize;
+    }
+    if (index == preorder.length - 1) {
+      return 1; // size of this node '#'
     }
 
+    return -1;
+  }
 
-    public static boolean isValidSerialization(String preorder) {
 
-        String[] array = preorder.split(",");
+  public static boolean isValidSerialization(String preorder) {
 
-        int root = isValidNode(array, 0);
-        if (root == -1) {
-            return false;
-        }
+    String[] array = preorder.split(",");
 
-        return root == array.length;
+    int root = isValidNode(array, 0);
+    if (root == -1) {
+      return false;
     }
 
-    public static void main(String[] args) {
-        System.out.println(VerifyPreorderSerialization.isValidSerialization("9,3,4,#,#,1,#,#,2,#,6,#,#")); // true
-        System.out.println(VerifyPreorderSerialization.isValidSerialization("9,3,4,#,#,1,#,#,2,#,#,#,#")); // false
-        System.out.println(VerifyPreorderSerialization.isValidSerialization("1,#")); // false
-        System.out.println(VerifyPreorderSerialization.isValidSerialization("9,#,#,1")); // false
-        System.out.println(VerifyPreorderSerialization.isValidSerialization("#")); //true
-    }
+    return root == array.length;
+  }
+
+  public static void main(String[] args) {
+    System.out.println(isValidSerialization("9,3,4,#,#,1,#,#,2,#,6,#,#")); // true
+    System.out.println(isValidSerialization("9,3,4,#,#,1,#,#,2,#,#,#,#")); // false
+    System.out.println(isValidSerialization("1,#")); // false
+    System.out.println(isValidSerialization("9,#,#,1")); // false
+    System.out.println(isValidSerialization("#")); //true
+  }
 }

@@ -22,64 +22,65 @@ package org.paukov.exercise.linkedlist;
  */
 public class AddTwoNumbers {
 
-    //Definition for singly-linked list.
-    public class ListNode {
-        int val;
-        ListNode next;
+  public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    ListNode s1 = l1, s2 = l2;
+    int rem = 0;
+    ListNode root = null;
+    ListNode node = null;
 
-        ListNode(int x) {
-            val = x;
-        }
+    while (s1 != null || s2 != null || rem != 0) {
+
+      int s1Value = 0;
+      if (s1 != null) {
+        s1Value = s1.val;
+      }
+
+      int s2Value = 0;
+      if (s2 != null) {
+        s2Value = s2.val;
+      }
+
+      int value = s1Value + s2Value + rem;
+
+      if (value >= 10) {
+        value = value - 10;
+        rem = 1;
+      } else {
+        rem = 0;
+      }
+
+      if (root == null) {
+        root = new ListNode(value);
+        node = root;
+      } else {
+        node.next = new ListNode(value);
+        node = node.next;
+      }
+
+      if (s1 != null) {
+        s1 = s1.next;
+      } else {
+        s1 = null;
+      }
+
+      if (s2 != null) {
+        s2 = s2.next;
+      } else {
+        s2 = null;
+      }
     }
+    return root;
+  }
 
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode s1 = l1, s2 = l2;
-        int rem = 0;
-        ListNode root = null;
-        ListNode node = null;
+  //Definition for singly-linked list.
+  public class ListNode {
 
-        while (s1 != null || s2 != null || rem != 0) {
+    int val;
+    ListNode next;
 
-            int s1Value = 0;
-            if (s1 != null) {
-                s1Value = s1.val;
-            }
-
-            int s2Value = 0;
-            if (s2 != null) {
-                s2Value = s2.val;
-            }
-
-            int value = s1Value + s2Value + rem;
-
-            if (value >= 10) {
-                value = value - 10;
-                rem = 1;
-            } else {
-                rem = 0;
-            }
-
-            if (root == null) {
-                root = new ListNode(value);
-                node = root;
-            } else {
-                node.next = new ListNode(value);
-                node = node.next;
-            }
-
-            if (s1 != null) {
-                s1 = s1.next;
-            } else {
-                s1 = null;
-            }
-
-            if (s2 != null) {
-                s2 = s2.next;
-            } else {
-                s2 = null;
-            }
-        }
-        return root;
+    ListNode(int x) {
+      val = x;
     }
+  }
 
 }

@@ -28,44 +28,45 @@ package org.paukov.exercise.tree;
  */
 public class MaximumBinaryTree {
 
-    static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x) {
-            val = x;
-        }
+  /**
+   * Recursive solution, O(n^2) in the worst case.
+   * Can try to improve by using max-heap for searching max value in each subarray.
+   */
+  TreeNode constructTree(int[] arr, int lo, int hi) {
+    if (lo == hi) {
+      return new TreeNode(arr[lo]);
+    } else if (lo > hi) {
+      return null;
     }
 
-    /**
-     * Recursive solution, O(n^2) in the worst case.
-     * Can try to improve by using max-heap for searching max value in each subarray.
-     */
-    TreeNode constructTree(int[] arr, int lo, int hi) {
-        if (lo == hi) {
-            return new TreeNode(arr[lo]);
-        } else if (lo > hi) {
-            return null;
-        }
+    int max = arr[lo];
+    int max_i = lo;
 
-        int max = arr[lo];
-        int max_i = lo;
-
-        for (int i = lo + 1; i <= hi; i++) {
-            if (arr[i] > max) {
-                max = arr[i];
-                max_i = i;
-            }
-        }
-
-        TreeNode node = new TreeNode(max);
-        node.left = constructTree(arr, lo, max_i - 1);
-        node.right = constructTree(arr, max_i + 1, hi);
-        return node;
+    for (int i = lo + 1; i <= hi; i++) {
+      if (arr[i] > max) {
+        max = arr[i];
+        max_i = i;
+      }
     }
 
-    public TreeNode constructMaximumBinaryTree(int[] nums) {
-        return constructTree(nums, 0, nums.length - 1);
+    TreeNode node = new TreeNode(max);
+    node.left = constructTree(arr, lo, max_i - 1);
+    node.right = constructTree(arr, max_i + 1, hi);
+    return node;
+  }
+
+  public TreeNode constructMaximumBinaryTree(int[] nums) {
+    return constructTree(nums, 0, nums.length - 1);
+  }
+
+  static class TreeNode {
+
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int x) {
+      val = x;
     }
+  }
 }

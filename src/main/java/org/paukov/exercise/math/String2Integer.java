@@ -69,40 +69,40 @@ package org.paukov.exercise.math;
  */
 public class String2Integer {
 
-    public static int myAtoi(String str) {
-        int result = 0;
-        int pos = 0;
-        int sign = 1;
-        int len = str.length();
+  public static int myAtoi(String str) {
+    int result = 0;
+    int pos = 0;
+    int sign = 1;
+    int len = str.length();
 
-        if (len == 0) {
-            return 0;
-        }
-
-        while (pos < len && str.charAt(pos) == ' ') {
-            pos++;
-        }
-
-        if (pos < len && str.charAt(pos) == '-') {
-            sign = -1;
-            pos++;
-        } else if (pos < len && str.charAt(pos) == '+') {
-            pos++;
-        }
-
-        while (pos < len && Character.isDigit(str.charAt(pos))) {
-            if (Integer.MAX_VALUE / 10 >= result &&
-                    Integer.MAX_VALUE - Character.digit(str.charAt(pos), 10) >= result * 10) {
-                result = result * 10 + Character.digit(str.charAt(pos), 10);
-            } else {
-                if (sign > 0) {
-                    return Integer.MAX_VALUE;
-                } else {
-                    return Integer.MIN_VALUE;
-                }
-            }
-            pos++;
-        }
-        return sign * result;
+    if (len == 0) {
+      return 0;
     }
+
+    while (pos < len && str.charAt(pos) == ' ') {
+      pos++;
+    }
+
+    if (pos < len && str.charAt(pos) == '-') {
+      sign = -1;
+      pos++;
+    } else if (pos < len && str.charAt(pos) == '+') {
+      pos++;
+    }
+
+    while (pos < len && Character.isDigit(str.charAt(pos))) {
+      if (Integer.MAX_VALUE / 10 >= result &&
+          Integer.MAX_VALUE - Character.digit(str.charAt(pos), 10) >= result * 10) {
+        result = result * 10 + Character.digit(str.charAt(pos), 10);
+      } else {
+        if (sign > 0) {
+          return Integer.MAX_VALUE;
+        } else {
+          return Integer.MIN_VALUE;
+        }
+      }
+      pos++;
+    }
+    return sign * result;
+  }
 }

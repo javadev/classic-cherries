@@ -6,22 +6,23 @@ package org.paukov.exercise.bits;
  * Right propagate the rightmost set bit, e.g. 01010000 -> 01011111.
  */
 public class RightPropagate {
-    static int run(int x) {
 
-        int result = x;
+  static int run(int x) {
 
-        // the lowest one-bit (that is 1), others are zero
-        int y = x & ~(x - 1);
+    int result = x;
 
-        while (y != 0) {
-            y >>= 1;
-            result |= y;
-        }
+    // the lowest one-bit (that is 1), others are zero
+    int y = x & ~(x - 1);
 
-        return result;
+    while (y != 0) {
+      y >>= 1;
+      result |= y;
     }
 
-    public static void main(String[] args) {
-        System.out.println("Bin: " + Integer.toBinaryString(RightPropagate.run(0b01010000)));
-    }
+    return result;
+  }
+
+  public static void main(String[] args) {
+    System.out.println("Bin: " + Integer.toBinaryString(RightPropagate.run(0b01010000)));
+  }
 }

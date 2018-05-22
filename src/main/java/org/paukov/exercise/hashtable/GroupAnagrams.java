@@ -11,9 +11,9 @@ import java.util.List;
  * <p>
  * For example, given: ["eat", "tea", "tan", "ate", "nat", "bat"],
  * Return: [
- *   ["ate", "eat","tea"],
- *   ["nat","tan"],
- *   ["bat"]
+ * ["ate", "eat","tea"],
+ * ["nat","tan"],
+ * ["bat"]
  * ]
  * Note: All inputs will be in lower-case.
  * <p>
@@ -21,59 +21,65 @@ import java.util.List;
  */
 public class GroupAnagrams {
 
-    static class Anagram {
-        String string;
+  public static List<List<String>> groupAnagrams(String[] strs) {
+    HashMap<Anagram, List<String>> groups = new HashMap<Anagram, List<String>>();
+    for (String str : strs) {
+      Anagram anagram = new Anagram(str);
+      if (groups.containsKey(anagram)) {
+        groups.get(anagram).add(str);
+      } else {
+        groups.put(anagram, new ArrayList<String>(Arrays.asList(str)));
+      }
+    }
+    List<List<String>> result = new ArrayList<List<String>>(groups.values());
+    return result;
+  }
 
-        Anagram(String string) {
-            this.string = string;
-        }
+  public static void main(String[] args) {
+    System.out.println(
+        "Groups: " + groupAnagrams(new String[]{"eat", "tea", "tan", "ate", "nat", "bat"}));
+  }
 
-        int getCode() {
-            int code = 1;
-            for (char c : string.toCharArray()) {
-                if (code > Integer.MAX_VALUE / c) {
-                    // overflow, will use sorting
-                    char[] sorted = string.toCharArray();
-                    Arrays.sort(sorted);
-                    return Arrays.hashCode(sorted);
-                } else {
-                    // TODO: probably should use the prime numbers here
-                    // instead if the char codes.
-                    code *= c;
-                }
-            }
-            return code;
-        }
+  static class Anagram {
 
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Anagram anagram = (Anagram) o;
-            return getCode() == anagram.getCode();
-        }
+    String string;
 
-        @Override
-        public int hashCode() {
-            return getCode();
-        }
+    Anagram(String string) {
+      this.string = string;
     }
 
-    public static List<List<String>> groupAnagrams(String[] strs) {
-        HashMap<Anagram, List<String>> groups = new HashMap<Anagram, List<String>>();
-        for (String str : strs) {
-            Anagram anagram = new Anagram(str);
-            if (groups.containsKey(anagram)) {
-                groups.get(anagram).add(str);
-            } else {
-                groups.put(anagram, new ArrayList<String>(Arrays.asList(str)));
-            }
+    int getCode() {
+      int code = 1;
+      for (char c : string.toCharArray()) {
+        if (code > Integer.MAX_VALUE / c) {
+          // overflow, will use sorting
+          char[] sorted = string.toCharArray();
+          Arrays.sort(sorted);
+          return Arrays.hashCode(sorted);
+        } else {
+          // TODO: probably should use the prime numbers here
+          // instead if the char codes.
+          code *= c;
         }
-        List<List<String>> result = new ArrayList<List<String>>(groups.values());
-        return result;
+      }
+      return code;
     }
 
-    public static void main(String[] args) {
-        System.out.println("Groups: " + groupAnagrams(new String[]{"eat", "tea", "tan", "ate", "nat", "bat"}));
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
+      Anagram anagram = (Anagram) o;
+      return getCode() == anagram.getCode();
     }
+
+    @Override
+    public int hashCode() {
+      return getCode();
+    }
+  }
 }

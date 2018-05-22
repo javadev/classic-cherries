@@ -62,84 +62,84 @@ import java.util.Stack;
  */
 public class IntegerToRoman {
 
-    static String romanMap(int base, int degree) {
-        if (base == 1 && degree == 0) {
-            return "I";
-        }
-        if (base == 1 && degree == 1) {
-            return "X";
-        }
-        if (base == 1 && degree == 2) {
-            return "C";
-        }
-        if (base == 1 && degree == 3) {
-            return "M";
-        }
-        if (base == 5 && degree == 0) {
-            return "V";
-        }
-        if (base == 5 && degree == 1) {
-            return "L";
-        }
-        if (base == 5 && degree == 2) {
-            return "D";
-        }
-        return "";
+  static String romanMap(int base, int degree) {
+    if (base == 1 && degree == 0) {
+      return "I";
     }
+    if (base == 1 && degree == 1) {
+      return "X";
+    }
+    if (base == 1 && degree == 2) {
+      return "C";
+    }
+    if (base == 1 && degree == 3) {
+      return "M";
+    }
+    if (base == 5 && degree == 0) {
+      return "V";
+    }
+    if (base == 5 && degree == 1) {
+      return "L";
+    }
+    if (base == 5 && degree == 2) {
+      return "D";
+    }
+    return "";
+  }
 
-    static String roman(int digit, int degree) {
-        StringBuilder sb = new StringBuilder();
-        if (digit > 0 && digit <= 3) {
-            String base1 = romanMap(1, degree);
-            for (int i = 0; i < digit; i++) {
-                sb.append(base1);
-            }
-            return sb.toString();
-        }
-        if (digit == 4) {
-            String base1 = romanMap(1, degree);
-            String base5 = romanMap(5, degree);
-            sb.append(base1);
-            sb.append(base5);
-            return sb.toString();
-        }
-        if (digit == 5) {
-            String base5 = romanMap(5, degree);
-            sb.append(base5);
-            return sb.toString();
-        }
-        if (digit > 5 && digit <= 8) {
-            String base1 = romanMap(1, degree);
-            String base5 = romanMap(5, degree);
-            sb.append(base5);
-            for (int i = 1; i <= digit - 5; i++) {
-                sb.append(base1);
-            }
-            return sb.toString();
-        }
-        if (digit == 9) {
-            String base1 = romanMap(1, degree);
-            String base10 = romanMap(1, degree + 1);
-            sb.append(base1);
-            sb.append(base10);
-            return sb.toString();
-        }
-        return "";
+  static String roman(int digit, int degree) {
+    StringBuilder sb = new StringBuilder();
+    if (digit > 0 && digit <= 3) {
+      String base1 = romanMap(1, degree);
+      for (int i = 0; i < digit; i++) {
+        sb.append(base1);
+      }
+      return sb.toString();
     }
+    if (digit == 4) {
+      String base1 = romanMap(1, degree);
+      String base5 = romanMap(5, degree);
+      sb.append(base1);
+      sb.append(base5);
+      return sb.toString();
+    }
+    if (digit == 5) {
+      String base5 = romanMap(5, degree);
+      sb.append(base5);
+      return sb.toString();
+    }
+    if (digit > 5 && digit <= 8) {
+      String base1 = romanMap(1, degree);
+      String base5 = romanMap(5, degree);
+      sb.append(base5);
+      for (int i = 1; i <= digit - 5; i++) {
+        sb.append(base1);
+      }
+      return sb.toString();
+    }
+    if (digit == 9) {
+      String base1 = romanMap(1, degree);
+      String base10 = romanMap(1, degree + 1);
+      sb.append(base1);
+      sb.append(base10);
+      return sb.toString();
+    }
+    return "";
+  }
 
-    public static String intToRoman(int num) {
-        Stack<String> stack = new Stack<>();
-        int degree = 0;
-        while (num > 0) {
-            int digit = num % 10;
-            stack.push(roman(digit, degree));
-            num = num / 10;
-            degree++;
-        }
-        StringBuilder sb = new StringBuilder();
-        while (!stack.isEmpty()) {
-            sb.append(stack.pop());
-        }
-        return sb.toString();
+  public static String intToRoman(int num) {
+    Stack<String> stack = new Stack<>();
+    int degree = 0;
+    while (num > 0) {
+      int digit = num % 10;
+      stack.push(roman(digit, degree));
+      num = num / 10;
+      degree++;
     }
+    StringBuilder sb = new StringBuilder();
+    while (!stack.isEmpty()) {
+      sb.append(stack.pop());
+    }
+    return sb.toString();
+  }
 }
