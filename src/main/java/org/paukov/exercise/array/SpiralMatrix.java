@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class SpiralMatrix {
 
-  public List<Integer> spiralOrder(int[][] matrix) {
+  static List<Integer> spiralOrder(int[][] matrix) {
     List<Integer> result = new ArrayList<>();
 
     if (matrix.length == 0) {
