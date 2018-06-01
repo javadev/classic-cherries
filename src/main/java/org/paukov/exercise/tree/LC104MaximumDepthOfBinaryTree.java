@@ -1,4 +1,4 @@
-package org.paukov.tree;
+package org.paukov.exercise.tree;
 
 /**
  * Created by dpaukov on 5/30/18.
