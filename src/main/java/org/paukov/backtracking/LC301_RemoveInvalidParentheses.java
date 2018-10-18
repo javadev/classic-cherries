@@ -9,6 +9,8 @@ import java.util.Set;
 /**
  * Created by dpaukov on 3/13/18.
  *
+ * 301. Remove Invalid Parentheses
+ *
  * Remove the minimum number of invalid parentheses in order to
  * make the input string valid. Return all possible results.
  *
@@ -22,14 +24,14 @@ import java.util.Set;
  *
  * https://leetcode.com/problems/remove-invalid-parentheses/description/
  */
-public class RemoveInvalidParentheses extends Backtracking<Boolean, List<String>> {
+public class LC301_RemoveInvalidParentheses extends Backtracking<Boolean, List<String>> {
 
   private int minRemoved = Integer.MAX_VALUE;
   private List<List<Boolean>> result = new ArrayList<List<Boolean>>();
   private long count = 0;
 
   public static Set<String> calc(String input) {
-    RemoveInvalidParentheses removeInvalidParentheses = new RemoveInvalidParentheses();
+    LC301_RemoveInvalidParentheses removeInvalidParentheses = new LC301_RemoveInvalidParentheses();
     Boolean[] vector = new Boolean[input.length() + 2];
     List<String> dataInput = Arrays.asList(input.split(""));
     removeInvalidParentheses.run(vector, 0, dataInput);
@@ -47,7 +49,7 @@ public class RemoveInvalidParentheses extends Backtracking<Boolean, List<String>
   }
 
   public static void main(String[] args) {
-    RemoveInvalidParentheses.calc("()())()");
+    LC301_RemoveInvalidParentheses.calc("()())()");
   }
 
   protected boolean isSolution(Boolean[] vector, int k, List<String> dataInput) {
